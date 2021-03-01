@@ -16,10 +16,12 @@
     "symon"
   ],
   "scripts": {
+    "pretest": "npm run format",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "format": "prettier --check ."
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",
@@ -40,8 +42,15 @@
     "eslint-config-prettier": "^8.1.0",
     "mocha": "^5.2.0",
     "nyc": "^14.1.1",
+    "prettier": "2.2.1",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.9"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
   },
   "engines": {
     "node": ">=8.0.0"
