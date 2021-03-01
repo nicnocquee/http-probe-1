@@ -40,6 +40,8 @@
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.1.0",
     "eslint-config-prettier": "^8.1.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
     "mocha": "^5.2.0",
     "nyc": "^14.1.1",
     "prettier": "2.2.1",
@@ -61,5 +63,14 @@
   ],
   "homepage": "https://github.com/https://github.com/hyperjumptech/symon-agent/symon-agent",
   "bugs": "https://github.com/https://github.com/hyperjumptech/symon-agent/symon-agent/issues",
-  "repository": "https://github.com/hyperjumptech/symon-agent/symon-agent"
+  "repository": "https://github.com/hyperjumptech/symon-agent/symon-agent",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
 }
