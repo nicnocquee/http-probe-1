@@ -1,0 +1,11 @@
+{
+  "interval": 20,
+  "notifications": [
+    {
+      "id": "unique-id",
+      "type": "mailgun",
+      "url": "https://api:key-somekey@api.mailgun.net/v3/some-domain/messages",
+      "recipients": ["admin@admin.com"]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "notifications": [
+    {
+      "id": "unique-id",
+      "type": "mailgun",
+      "url": "https://api:key-somekey@api.mailgun.net/v3/some-domain/messages",
+      "recipients": ["admin@admin.com"]
+    }
+  ],
+  "probes": [
+    {
+      "id": "1",
+      "name": "something",
+      "description": "some description",
+      "request": {
+        "method": "POST",
+        "url": "https://something/login",
+        "headers": {
+          "Authorization": ""
+        },
+        "body": {
+          "username": "someusername",
+          "password": "somepassword"
+        }
+      },
+      "alerts": ["status-not-200", "Response-greater-than-200"]
+    }
+  ]
+}

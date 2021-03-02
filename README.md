@@ -1,11 +1,10 @@
-# symon-agent
+# http-probe
 
 Synthetic monitoring made easy
 
 <!-- toc -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+- [http-probe](#http-probe)
 <!-- tocstop -->
 
 ### Usage
@@ -13,13 +12,11 @@ Synthetic monitoring made easy
 <!-- usage -->
 
 ```sh-session
-$ npm install -g symon-agent
+$ npm install -g http-probe
 $ symon COMMAND
 running command...
-
 $ symon (-v|--version|version)
-symon-agent/0.0.0 darwin-x64 node-v14.15.2
-
+http-probe/0.0.0 linux-x64 node-v14.15.4
 $ symon --help [COMMAND]
 USAGE
   $ symon COMMAND
