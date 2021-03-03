@@ -1,3 +1,9 @@
+import {
+  SMTPData,
+  MailgunData,
+  SendgridData,
+  WebhookData,
+} from './../interfaces/data'
 import { Config } from '../interfaces/config'
 
 export const validateConfig = async (configuration: Config) => {
@@ -17,6 +23,87 @@ export const validateConfig = async (configuration: Config) => {
     return {
       valid: false,
       message: 'Probes object does not exists or has length lower than 1!',
+    }
+  }
+
+  for (const notification of data.notifications) {
+    const { type, data } = notification
+    switch (type) {
+      case 'smtp':
+        if (!(data as SMTPData).hostname) {
+          return {
+            valid: false,
+            message: 'Hostname not found',
+          }
+        }
+
+        if (!(data as SMTPData).port) {
+          return {
+            valid: false,
+            message: 'Port not found',
+          }
+        }
+
+        if (!(data as SMTPData).username) {
+          return {
+            valid: false,
+            message: 'Username not found',
+          }
+        }
+
+        if (!(data as SMTPData).password) {
+          return {
+            valid: false,
+            message: 'Password not found',
+          }
+        }
+        break
+      case 'mailgun':
+        if (!(data as MailgunData).apiKey) {
+          return {
+            valid: false,
+            message: 'API key not found',
+          }
+        }
+
+        if (!(data as MailgunData).domain) {
+          return {
+            valid: false,
+            message: 'Domain not found',
+          }
+        }
+        break
+
+      case 'sendgrid':
+        if (!(data as SendgridData).apiKey) {
+          return {
+            valid: false,
+            message: 'API key not found',
+          }
+        }
+        break
+
+      case 'webhook':
+        if (!(data as WebhookData).url) {
+          return {
+            valid: false,
+            message: 'URL not found',
+          }
+        }
+
+        if (!(data as WebhookData).method) {
+          return {
+            valid: false,
+            message: 'Method not found',
+          }
+        }
+        break
+
+      default:
+        return {
+          valid: false,
+          message: 'Notifications type is not allowed',
+        }
     }
   }
 

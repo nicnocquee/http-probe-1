@@ -3,13 +3,11 @@
   "notifications": [
     {
       "id": "unique-id",
-      "type": "smtp",
+      "type": "mailgun",
       "recipients": ["a@a.com"],
       "data": {
-        "hostname": "https://www.dennypradipta.com",
-        "port": 8080,
-        "username": "dennypradipta",
-        "password": "bismillah"
+        "apiKey": "adfsafdsadfdsafsafds",
+        "domain": "api.mailgun.net"
       }
     }
   ],
@@ -29,10 +27,7 @@
           "password": "somepassword"
         }
       },
-      "alerts": [
-        "status-not-200",
-        "Response-greater-than-200"
-      ]
+      "alerts": ["status-not-200", "Response-greater-than-200"]
     }
   ]
 }

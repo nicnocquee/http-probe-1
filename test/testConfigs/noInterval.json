@@ -2,9 +2,14 @@
   "notifications": [
     {
       "id": "unique-id",
-      "type": "mailgun",
-      "url": "https://api:key-somekey@api.mailgun.net/v3/some-domain/messages",
-      "recipients": ["admin@admin.com"]
+      "type": "smtp",
+      "recipients": ["a@a.com"],
+      "data": {
+        "hostname": "https://www.dennypradipta.com",
+        "port": 8080,
+        "username": "dennypradipta",
+        "password": "bismillah"
+      }
     }
   ],
   "probes": [

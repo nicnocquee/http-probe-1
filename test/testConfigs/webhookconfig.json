@@ -3,13 +3,11 @@
   "notifications": [
     {
       "id": "unique-id",
-      "type": "smtp",
-      "recipients": ["a@a.com"],
+      "type": "webhook",
+      "recipients": ["admin@admin.com"],
       "data": {
-        "hostname": "https://www.dennypradipta.com",
-        "port": 8080,
-        "username": "dennypradipta",
-        "password": "bismillah"
+        "url": "http://www.dennypradipta.com",
+        "method": "GET"
       }
     }
   ],
@@ -29,10 +27,7 @@
           "password": "somepassword"
         }
       },
-      "alerts": [
-        "status-not-200",
-        "Response-greater-than-200"
-      ]
+      "alerts": ["status-not-200", "Response-greater-than-200"]
     }
   ]
 }

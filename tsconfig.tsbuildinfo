@@ -166,6 +166,11 @@
         "signature": "4576b4e61049f5ffd7c9e935cf88832e089265bdb15ffc35077310042cbbbeea",
         "affectsGlobalScope": false
       },
+      "./src/interfaces/data.ts": {
+        "version": "636e5711fbe0c2de5cb99d11bc4df181021a93400cd721b5f2924ffa0fc860ec",
+        "signature": "52927b86c31389c92f666019ff6cff46a99905603618721cb80518e1303315a1",
+        "affectsGlobalScope": false
+      },
       "./node_modules/@oclif/parser/lib/args.d.ts": {
         "version": "b8fac2a2a066d140f34e5e0c698440f1f8c8a94eea2c95d156ce821ed53336e2",
         "signature": "b8fac2a2a066d140f34e5e0c698440f1f8c8a94eea2c95d156ce821ed53336e2",
@@ -297,42 +302,42 @@
         "affectsGlobalScope": false
       },
       "./src/interfaces/validation.ts": {
-        "version": "cacfc9f8b65d6df605bc874ef3619de8eb453137a339d7d883d319bf476ae769",
-        "signature": "d543e7418f70bc9583a17e5f2cebbd9eecc9e6bc1e36a17ed8e7e72b1fc4cbc2",
+        "version": "0db777c06140150f90f1b52bafe0f24cb486448750c524d8cbb669132bb17ac0",
+        "signature": "b376614c084801291099c40280c38fc6794027aabb6562b0c85039952f1ccfe2",
         "affectsGlobalScope": false
       },
       "./src/interfaces/notification.ts": {
-        "version": "7bf77ef8024e816432e9ec779a8aa1049027bf84b10315cf089c4565e062b3d3",
-        "signature": "b480afd7b9fa196c2f98713b118b6d0d02c4355865cf2de380ffecc5ed65d501",
+        "version": "4522bc3998ab50cfed1fa72b094c24987845b76da3395f1d5e7536578eafb99a",
+        "signature": "941509db7e00cba7c6fcdbc8cd87db126830f34cf82ea230fb8814e1208d9e08",
         "affectsGlobalScope": false
       },
       "./src/interfaces/probe.ts": {
-        "version": "bf86deba299ad49aae72a072c697c9da120e89903d30cfa017d835513430df39",
+        "version": "cd6dc789fc5e9b8d64e5ca6da8ab64e702d9faa8659ef680608fd036717a65ef",
         "signature": "fa345f1366267db3723217b4794ea9c2b6e6835d71328cfa6ce5d70397ae4b02",
         "affectsGlobalScope": false
       },
       "./src/interfaces/config.ts": {
-        "version": "5464d8cb950bd50b42e85ebcdeb77073922763a63e2f158369c07a26101cc13b",
-        "signature": "734bb848df945a7f59e78d1392cef0c5a83731800a75a03f605ef999bddc2db2",
+        "version": "7d4be343ddf3ced2961039cd195a95a4d31887d12c2e9f18f37cc627de58b75b",
+        "signature": "f77338644e91d42d42ad45af718db82b9b3c483077e745796982ffd710492f6c",
         "affectsGlobalScope": false
       },
       "./src/utils/validate-config.ts": {
-        "version": "e999ab0acd6e6215b0e5d474909386b9596761e608fd01eaed41223f4b277309",
-        "signature": "7f6eb43b2f6002e0eea045a3a177351c901f9d8aaefc58b7812fb86b11501cb1",
+        "version": "498616c003ccbb5dc97ac7b508eba10f3bb636e3e0295af4a1ee3791fc0cc103",
+        "signature": "fe1eb9bfb09ec1fd33ab6f177ffb28c684f0592ddb0a9acfe0d7453425201874",
         "affectsGlobalScope": false
       },
       "./src/utils/parse-config.ts": {
-        "version": "e5d0194f2d0d9924a78f5e63c148163c909d71332ffada4d3178a01511c8dfd6",
-        "signature": "6364eae61bc9b15b1454b9bfe28782c2269ebf3256e5d675900fa71f7adb1f95",
+        "version": "03d4a438c9563b0dfd1b18d4996b24b7a3b421bd74b1fc4512363ade48f09ef1",
+        "signature": "be57ca5cbd62573ccc3bf9e0df03891893979d4a01ebcc860fa9a123982e1e7b",
         "affectsGlobalScope": false
       },
       "./src/index.ts": {
-        "version": "36d4d55a85f644aca590d4f1d6a100fa39ca2bcf590579feaa0b5e424c7a3ce6",
-        "signature": "f266cb9e05468b31df4c3080c783e0aa1ecf7f201dcff39dc5abd4d29e0f3d76",
+        "version": "95a223c5c1fb8e45bf4bba2e23a4f5715eb7133db90fa5983392421572068abc",
+        "signature": "05b2bd1e53bf55419e2ab007365937275030595c1a4adcb32eb2fab188783154",
         "affectsGlobalScope": false
       },
       "./src/interfaces/request.ts": {
-        "version": "dc600a8c77405d7c4a5e434a7eba3e1a36b16942222307056e4598263afbcb26",
+        "version": "13a509aaa8e56b529a50e75fa8d425fe324377affecd95c9c635a4e7abc7f7f1",
         "signature": "60f6b0ea92088f5658bc7054b5a3c5202447a8be3735103a41e3bcb34458e2c4",
         "affectsGlobalScope": false
       },
@@ -645,6 +650,11 @@
         "version": "c4c03cf65951d980ba618ae9601d10438730803fc9c8a1f7b34af8739981e205",
         "signature": "c4c03cf65951d980ba618ae9601d10438730803fc9c8a1f7b34af8739981e205",
         "affectsGlobalScope": true
+      },
+      "./node_modules/@types/parse-json/index.d.ts": {
+        "version": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "signature": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "affectsGlobalScope": false
       },
       "./node_modules/@types/sinonjs__fake-timers/index.d.ts": {
         "version": "558a9770503071d5a6fc6c596f7230bb79f2d034ced4a205bd1ebcad3b5879ec",
@@ -1093,6 +1103,7 @@
       "./src/index.ts": [
         "./node_modules/@oclif/command/lib/index.d.ts",
         "./src/interfaces/config.ts",
+        "./src/interfaces/data.ts",
         "./src/interfaces/validation.ts",
         "./src/utils/parse-config.ts",
         "./src/utils/validate-config.ts"
@@ -1101,12 +1112,16 @@
         "./src/interfaces/notification.ts",
         "./src/interfaces/probe.ts"
       ],
+      "./src/interfaces/notification.ts": [
+        "./src/interfaces/data.ts"
+      ],
       "./src/utils/parse-config.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./src/interfaces/config.ts"
       ],
       "./src/utils/validate-config.ts": [
-        "./src/interfaces/config.ts"
+        "./src/interfaces/config.ts",
+        "./src/interfaces/data.ts"
       ]
     },
     "exportedModulesMap": {
@@ -1539,6 +1554,9 @@
         "./src/interfaces/notification.ts",
         "./src/interfaces/probe.ts"
       ],
+      "./src/interfaces/notification.ts": [
+        "./src/interfaces/data.ts"
+      ],
       "./src/utils/parse-config.ts": [
         "./src/interfaces/config.ts"
       ],
@@ -1635,6 +1653,7 @@
       "./node_modules/@types/node/vm.d.ts",
       "./node_modules/@types/node/worker_threads.d.ts",
       "./node_modules/@types/node/zlib.d.ts",
+      "./node_modules/@types/parse-json/index.d.ts",
       "./node_modules/@types/sinon/index.d.ts",
       "./node_modules/@types/sinonjs__fake-timers/index.d.ts",
       "./node_modules/tslib/tslib.d.ts",
@@ -1672,6 +1691,7 @@
       "./node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
       "./src/index.ts",
       "./src/interfaces/config.ts",
+      "./src/interfaces/data.ts",
       "./src/interfaces/notification.ts",
       "./src/interfaces/probe.ts",
       "./src/interfaces/request.ts",

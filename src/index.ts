@@ -1,3 +1,9 @@
+import {
+  SMTPData,
+  MailgunData,
+  SendgridData,
+  WebhookData,
+} from './interfaces/data'
 import { Command, flags } from '@oclif/command'
 import { Validation } from './interfaces/validation'
 import { validateConfig } from './utils/validate-config'
@@ -47,8 +53,32 @@ class SymonAgent extends Command {
       config.notifications.forEach((item) => {
         this.log(`Notification ID: ${item.id}`)
         this.log(`Notification Type: ${item.type}`)
-        this.log(`Notification URL: ${item.url}`)
         this.log(`Notification Recipients: ${item.recipients.toString()}\n`)
+
+        this.log(`Notifications Details:\n\n`)
+        switch (item.type) {
+          case 'smtp':
+            this.log(`Hostname: ${(item.data as SMTPData).hostname}`)
+            this.log(`Port: ${(item.data as SMTPData).port}`)
+            this.log(`Username: ${(item.data as SMTPData).username}`)
+            this.log(`Password: ${(item.data as SMTPData).password}`)
+            break
+          case 'mailgun':
+            this.log(`API key: ${(item.data as MailgunData).apiKey}`)
+            this.log(`Domain: ${(item.data as MailgunData).domain}`)
+            break
+
+          case 'sendgrid':
+            this.log(`API key: ${(item.data as SendgridData).apiKey}`)
+            break
+
+          case 'webhook':
+            this.log(`URL: ${(item.data as WebhookData).url}`)
+            this.log(`Method: ${(item.data as WebhookData).method}`)
+            break
+
+          default:
+        }
       })
 
       this.log('Probes: ')
