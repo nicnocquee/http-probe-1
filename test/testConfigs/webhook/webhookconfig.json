@@ -4,7 +4,6 @@
     {
       "id": "unique-id",
       "type": "webhook",
-      "recipients": ["admin@admin.com"],
       "data": {
         "url": "http://www.dennypradipta.com",
         "method": "GET"

@@ -4,8 +4,8 @@
     {
       "id": "unique-id",
       "type": "mailgun",
-      "recipients": ["you@yourmail.com"],
       "data": {
+        "recipients": ["mantap@jiwa.com"],
         "apiKey": "YOUR_API_KEY",
         "domain": "YOUR_DOMAIN"
       }
@@ -15,6 +15,7 @@
       "type": "smtp",
       "recipients": ["a@a.com"],
       "data": {
+        "recipients": ["mantap@jiwa.com"],
         "hostname": "https://www.dennypradipta.com",
         "port": 8080,
         "username": "dennypradipta",
@@ -25,6 +26,7 @@
       "id": "unique-id-webhook",
       "type": "webhook",
       "data": {
+        "recipients": ["mantap@jiwa.com"],
         "method": "POST",
         "url": "https://examplewebhookurl.com/webhook"
       }

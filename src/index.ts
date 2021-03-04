@@ -3,6 +3,7 @@ import {
   MailgunData,
   SendgridData,
   WebhookData,
+  MailData,
 } from './interfaces/data'
 import { Command, flags } from '@oclif/command'
 import { Validation } from './interfaces/validation'
@@ -54,9 +55,15 @@ class SymonAgent extends Command {
       config.notifications.forEach((item) => {
         this.log(`Notification ID: ${item.id}`)
         this.log(`Notification Type: ${item.type}`)
-        this.log(`Notification Recipients: ${item.recipients?.toString()}\n`)
 
-        this.log(`Notifications Details:\n\n`)
+        // Only show recipients if type is mailgun, smtp, or sendgrid
+        if (['mailgun', 'smtp', 'sendgrid'].indexOf(item.type) >= 0) {
+          this.log(
+            `Notification Recipients: ${(item.data as MailData).recipients.toString()}\n`
+          )
+        }
+
+        this.log(`Notifications Details:`)
         switch (item.type) {
           case 'smtp':
             this.log(`Hostname: ${(item.data as SMTPData).hostname}`)
@@ -79,7 +86,7 @@ class SymonAgent extends Command {
         }
       })
 
-      this.log('Probes: ')
+      this.log('\nProbes: ')
       config.probes.forEach((item) => {
         this.log(`Probe ID: ${item.id}`)
         this.log(`Probe Name: ${item.name}`)

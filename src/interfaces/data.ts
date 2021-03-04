@@ -1,13 +1,17 @@
-export interface MailgunData {
+export interface MailData {
+  recipients: string[]
+}
+
+export interface MailgunData extends MailData {
   apiKey: string
   domain: string
 }
 
-export interface SendgridData {
+export interface SendgridData extends MailData {
   apiKey: string
 }
 
-export interface SMTPData {
+export interface SMTPData extends MailData {
   hostname: string
   port: number
   username: string

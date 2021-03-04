@@ -4,8 +4,8 @@
     {
       "id": "unique-id",
       "type": "sendgrid",
-      "recipients": ["a@a.com"],
       "data": {
+        "recipients": ["a@a.com"],
         "apiKey": "adfsafdsadfdsafsafds"
       }
     }

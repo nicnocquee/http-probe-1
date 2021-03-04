@@ -3,13 +3,9 @@
   "notifications": [
     {
       "id": "unique-id",
-      "type": "smtp",
-      "recipients": ["a@a.com"],
+      "type": "sendgrid",
       "data": {
-        "hostname": "https://www.dennypradipta.com",
-        "port": 8080,
-        "username": "dennypradipta",
-        "password": "bismillah"
+        "apiKey": "adfsafdsadfdsafsafds"
       }
     }
   ],

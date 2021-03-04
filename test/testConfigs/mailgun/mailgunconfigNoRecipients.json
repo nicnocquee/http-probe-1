@@ -1,11 +1,12 @@
 {
+  "interval": 20,
   "notifications": [
     {
       "id": "unique-id",
-      "type": "webhook",
+      "type": "mailgun",
       "data": {
-        "url": "http://www.dennypradipta.com",
-        "method": "GET"
+        "apiKey": "adfsafdsadfdsafsafds",
+        "domain": "api.mailgun.net"
       }
     }
   ],

@@ -1,8 +1,11 @@
+import { Notification } from '../interfaces/notification'
+/* eslint-disable complexity */
 import {
   SMTPData,
   MailgunData,
   SendgridData,
   WebhookData,
+  MailData,
 } from './../interfaces/data'
 import { Config } from '../interfaces/config'
 
@@ -27,7 +30,20 @@ export const validateConfig = async (configuration: Config) => {
   }
 
   for (const notification of data.notifications) {
-    const { type, data } = notification
+    const { type, data } = notification as Notification
+
+    // Check if type equals to mailgun, smtp, or sendgrid, and has no recipients
+    if (
+      ['mailgun', 'smtp', 'sendgrid'].indexOf(type) >= 0 &&
+      (!(data as MailData).recipients ||
+        (data as MailData).recipients.length === 0)
+    ) {
+      return {
+        valid: false,
+        message: 'Recipients does not exists or has length lower than 1!',
+      }
+    }
+
     switch (type) {
       case 'smtp':
         if (!(data as SMTPData).hostname) {

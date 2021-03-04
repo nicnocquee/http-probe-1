@@ -1,11 +1,15 @@
 {
+  "interval": 20,
   "notifications": [
     {
       "id": "unique-id",
-      "type": "webhook",
+      "type": "smtp",
       "data": {
-        "url": "http://www.dennypradipta.com",
-        "method": "GET"
+        "recipients": ["a@a.com"],
+        "hostname": "https://www.dennypradipta.com",
+        "port": 8080,
+        "username": "dennypradipta",
+        "password": "bismillah"
       }
     }
   ],
