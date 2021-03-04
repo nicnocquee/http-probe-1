@@ -9,6 +9,7 @@ import { Validation } from './interfaces/validation'
 import { validateConfig } from './utils/validate-config'
 import { parseConfig } from './utils/parse-config'
 import { Config } from './interfaces/config'
+import { sendWebhook } from './utils/webhook'
 
 class SymonAgent extends Command {
   static description = 'describe the command here'
@@ -53,7 +54,7 @@ class SymonAgent extends Command {
       config.notifications.forEach((item) => {
         this.log(`Notification ID: ${item.id}`)
         this.log(`Notification Type: ${item.type}`)
-        this.log(`Notification Recipients: ${item.recipients.toString()}\n`)
+        this.log(`Notification Recipients: ${item.recipients?.toString()}\n`)
 
         this.log(`Notifications Details:\n\n`)
         switch (item.type) {
@@ -73,11 +74,8 @@ class SymonAgent extends Command {
             break
 
           case 'webhook':
-            this.log(`URL: ${(item.data as WebhookData).url}`)
-            this.log(`Method: ${(item.data as WebhookData).method}`)
+            sendWebhook(item.data as WebhookData)
             break
-
-          default:
         }
       })
 

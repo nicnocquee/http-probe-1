@@ -4,9 +4,7 @@
     {
       "id": "unique-id",
       "type": "mailgun",
-      "recipients": [
-        "you@yourmail.com"
-      ],
+      "recipients": ["you@yourmail.com"],
       "data": {
         "apiKey": "YOUR_API_KEY",
         "domain": "YOUR_DOMAIN"
@@ -21,6 +19,14 @@
         "port": 8080,
         "username": "dennypradipta",
         "password": "bismillah"
+      }
+    },
+    {
+      "id": "unique-id-webhook",
+      "type": "webhook",
+      "data": {
+        "method": "POST",
+        "url": "https://examplewebhookurl.com/webhook"
       }
     }
   ],
@@ -40,10 +46,7 @@
           "password": "somepassword"
         }
       },
-      "alerts": [
-        "status-not-200",
-        "Response-greater-than-200"
-      ]
+      "alerts": ["status-not-200", "Response-greater-than-200"]
     }
   ]
 }

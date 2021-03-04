@@ -16,13 +16,5 @@ export interface SMTPData {
 
 export interface WebhookData {
   url: string
-  method: HttpRequestMethod
-}
-
-enum HttpRequestMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+  method: 'GET' | 'POST'
 }
