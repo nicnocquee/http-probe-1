@@ -3,6 +3,17 @@
   "notifications": [
     {
       "id": "unique-id",
+      "type": "mailgun",
+      "recipients": [
+        "you@yourmail.com"
+      ],
+      "data": {
+        "apiKey": "YOUR_API_KEY",
+        "domain": "YOUR_DOMAIN"
+      }
+    },
+    {
+      "id": "unique-id",
       "type": "smtp",
       "recipients": ["a@a.com"],
       "data": {
