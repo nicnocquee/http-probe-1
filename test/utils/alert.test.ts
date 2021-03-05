@@ -1,12 +1,20 @@
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
+import spies from 'chai-spies'
+import { MailgunData } from '../../src/interfaces/data'
+
+chai.use(spies)
 
 import { SymonResponse } from '../../src/interfaces/response'
 import {
   parseAlertStringTime,
   responseTimeGreaterThan,
+  sendAlerts,
   statusNot2xx,
   validateResponse,
 } from '../../src/utils/alert'
+import * as mailgun from '../../src/utils/mailgun'
+import * as webhook from '../../src/utils/webhook'
+import * as smtp from '../../src/utils/smtp'
 
 describe('check response status', () => {
   it('should trigger alert when response is within 4xx status', () => {
@@ -126,5 +134,142 @@ describe('check response against list of alerts', () => {
       } as SymonResponse
     ).filter(({ status }) => status === true)
     expect(alerts).to.have.length(2)
+  })
+})
+
+describe('send alerts', () => {
+  afterEach(() => {
+    chai.spy.restore()
+  })
+  it('should not send any alert', async () => {
+    const sent = await sendAlerts({
+      validations: [
+        {
+          alert: 'status-not-2xx',
+          status: false,
+        },
+      ],
+      notifications: [
+        {
+          id: 'one',
+          type: 'mailgun',
+          recipients: ['xx@xx'],
+          data: {
+            apiKey: 'xx',
+            domain: 'xxx',
+          } as MailgunData,
+        },
+      ],
+      url: 'https://hyperjump.tech',
+    })
+    expect(sent).to.have.length(0)
+  })
+  it('should send mailgun notification', async () => {
+    chai.spy.on(mailgun, 'sendMailgun', () => Promise.resolve())
+    const sent = await sendAlerts({
+      validations: [
+        {
+          alert: 'status-not-2xx',
+          status: true,
+        },
+      ],
+      notifications: [
+        {
+          id: 'one',
+          type: 'mailgun',
+          recipients: ['xx@xx'],
+          data: {
+            recipients: ['xx@xx'],
+            apiKey: 'xx',
+            domain: 'xxx',
+          },
+        },
+      ],
+      url: 'https://hyperjump.tech',
+    })
+    expect(mailgun.sendMailgun).to.have.been.called()
+    expect(sent).to.have.length(1)
+  })
+  it('should send webhook notification', async () => {
+    chai.spy.on(webhook, 'sendWebhook', () => Promise.resolve())
+    const sent = await sendAlerts({
+      validations: [
+        {
+          alert: 'status-not-2xx',
+          status: true,
+        },
+      ],
+      notifications: [
+        {
+          id: 'one',
+          type: 'webhook',
+          recipients: ['xx@xx'],
+          data: {
+            url: 'xx',
+            method: 'POST',
+          },
+        },
+      ],
+      url: 'https://hyperjump.tech',
+    })
+    expect(webhook.sendWebhook).to.have.been.called()
+    expect(sent).to.have.length(1)
+  })
+  it('should send SMTP notification', async () => {
+    chai.spy.on(smtp, 'sendSmtpMail', () => Promise.resolve())
+    const sent = await sendAlerts({
+      validations: [
+        {
+          alert: 'status-not-2xx',
+          status: true,
+        },
+      ],
+      notifications: [
+        {
+          id: 'one',
+          type: 'smtp',
+          recipients: ['xx@xx'],
+          data: {
+            recipients: ['xx@xx'],
+            hostname: 'xx',
+            port: 100,
+            username: 'xxx',
+            password: 'xxxx',
+          },
+        },
+      ],
+      url: 'https://hyperjump.tech',
+    })
+    expect(smtp.sendSmtpMail).to.have.been.called()
+    expect(sent).to.have.length(1)
+  })
+  it('should send both alerts', async () => {
+    chai.spy.on(webhook, 'sendWebhook', () => Promise.resolve())
+    const sent = await sendAlerts({
+      validations: [
+        {
+          alert: 'status-not-2xx',
+          status: true,
+        },
+        {
+          alert: 'response-time-greater-than-200-ms',
+          status: true,
+        },
+      ],
+      notifications: [
+        {
+          id: 'one',
+          type: 'webhook',
+          recipients: ['xx@xx'],
+          data: {
+            url: 'xx',
+            method: 'POST',
+          },
+        },
+      ],
+      url: 'https://hyperjump.tech',
+    })
+    expect(webhook.sendWebhook).to.have.been.called()
+    expect(sent).to.have.length(2)
   })
 })
