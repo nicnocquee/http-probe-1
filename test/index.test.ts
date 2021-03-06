@@ -35,10 +35,11 @@ describe('http-probe', () => {
     })
     .it('runs with config without notifications')
 
+  // Probes Test
   test
     .stderr()
     .do(() =>
-      cmd.run(['--config', resolve('./test/testConfigs/noProbes.json')])
+      cmd.run(['--config', resolve('./test/testConfigs/probes/noProbes.json')])
     )
     .catch((error) => {
       expect(error.message).to.contain(
@@ -46,6 +47,47 @@ describe('http-probe', () => {
       )
     })
     .it('runs with config without probes')
+
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/probes/noProbeName.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain('Probe name should not be empty')
+    })
+    .it('runs with config without probe name')
+
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/probes/noProbeRequest.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain('Probe request should not be empty')
+    })
+    .it('runs with config without probe request')
+
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/probes/noProbeAlerts.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain(
+        'Alerts does not exists or has length lower than 1!'
+      )
+    })
+    .it('runs with config without probe alerts')
 
   // Mailgun Tests
   test

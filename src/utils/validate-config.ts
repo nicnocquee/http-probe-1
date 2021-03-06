@@ -1,5 +1,5 @@
-import { Notification } from '../interfaces/notification'
 /* eslint-disable complexity */
+import { Notification } from '../interfaces/notification'
 import {
   SMTPData,
   MailgunData,
@@ -8,6 +8,7 @@ import {
   MailData,
 } from './../interfaces/data'
 import { Config } from '../interfaces/config'
+import { Probe } from '../interfaces/probe'
 
 export const validateConfig = async (configuration: Config) => {
   const data = configuration
@@ -21,7 +22,7 @@ export const validateConfig = async (configuration: Config) => {
     }
   }
 
-  // Check if notifications object is exists
+  // Validate probes
   if (!data.probes || data.probes.length === 0) {
     return {
       valid: false,
@@ -29,6 +30,7 @@ export const validateConfig = async (configuration: Config) => {
     }
   }
 
+  // Check notifications properties
   for (const notification of data.notifications) {
     const { type, data } = notification as Notification
 
@@ -120,6 +122,32 @@ export const validateConfig = async (configuration: Config) => {
           valid: false,
           message: 'Notifications type is not allowed',
         }
+    }
+  }
+
+  // Check probes properties
+  for (const probe of data.probes) {
+    const { alerts, name, request } = probe as Probe
+
+    if (!alerts || alerts.length === 0) {
+      return {
+        valid: false,
+        message: 'Alerts does not exists or has length lower than 1!',
+      }
+    }
+
+    if (!name) {
+      return {
+        valid: false,
+        message: 'Probe name should not be empty',
+      }
+    }
+
+    if (!request) {
+      return {
+        valid: false,
+        message: 'Probe request should not be empty',
+      }
     }
   }
 

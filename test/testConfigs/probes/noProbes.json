@@ -1,0 +1,13 @@
+{
+  "interval": 20,
+  "notifications": [
+    {
+      "id": "unique-id",
+      "type": "webhook",
+      "data": {
+        "url": "http://www.dennypradipta.com",
+        "method": "GET"
+      }
+    }
+  ]
+}
