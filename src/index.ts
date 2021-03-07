@@ -10,7 +10,6 @@ import { Validation } from './interfaces/validation'
 import { validateConfig } from './utils/validate-config'
 import { parseConfig } from './utils/parse-config'
 import { Config } from './interfaces/config'
-import { sendWebhook } from './utils/webhook'
 
 class SymonAgent extends Command {
   static description = 'describe the command here'
@@ -81,7 +80,7 @@ class SymonAgent extends Command {
             break
 
           case 'webhook':
-            sendWebhook(item.data as WebhookData)
+            this.log(`URL: ${(item.data as WebhookData).url}`)
             break
         }
       })

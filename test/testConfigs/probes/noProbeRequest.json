@@ -14,7 +14,7 @@
       "id": "1",
       "name": "Example",
       "description": "Probe",
-      "alerts": ["status-not-200", "Response-greater-than-200"]
+      "alerts": ["status-not-200", "response-greater-than-200"]
     }
   ]
 }
