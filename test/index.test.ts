@@ -34,6 +34,19 @@ describe('http-probe', () => {
     })
     .it('runs with config without notifications')
 
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/invalidNotificationType.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain('Notifications type is not allowed')
+    })
+    .it('runs with config with invalid notification type')
+
   // Probes Test
   test
     .stderr()
@@ -87,6 +100,36 @@ describe('http-probe', () => {
       )
     })
     .it('runs with config without probe alerts')
+
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/probes/invalidProbeRequestMethod.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain(
+        'Probe request method should be GET or POST only'
+      )
+    })
+    .it('runs with config with invalid probe request method')
+
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/probes/invalidProbeRequestURL.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain(
+        'Probe request URL should start with http:// or https://'
+      )
+    })
+    .it('runs with config with invalid probe request method')
 
   // Mailgun Tests
   test
