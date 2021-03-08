@@ -1,13 +1,14 @@
 import { SMTPData, WebhookData } from '../interfaces/data'
 import { Notification } from '../interfaces/notification'
 import { Probe } from '../interfaces/probe'
-import { SymonResponse } from '../interfaces/response'
+import { AxiosResponseWithExtraData } from '../interfaces/request'
+
 import getIp from './ip'
 import { sendMailgun } from './mailgun'
 import { createSmtpTransport, sendSmtpMail } from './smtp'
 import { sendWebhook } from './webhook'
 
-type CheckResponseFn = (response: SymonResponse) => boolean
+type CheckResponseFn = (response: AxiosResponseWithExtraData) => boolean
 type ValidateResponseStatus = { alert: string; status: boolean }
 
 // Check if response status is not 2xx
@@ -17,8 +18,13 @@ export const statusNot2xx: CheckResponseFn = (response) =>
 // Check if response time is greater than specified value in milliseconds
 export const responseTimeGreaterThan: (
   minimumTime: number
-) => CheckResponseFn = (minimumTime) => (response: SymonResponse): boolean =>
-  response.timeToResponse > minimumTime
+) => CheckResponseFn = (minimumTime) => (
+  response: AxiosResponseWithExtraData
+): boolean => {
+  const respTimeNum = response.extraData?.responseTime ?? 0
+
+  return respTimeNum > minimumTime
+}
 
 // parse string like "response-time-greater-than-200ms" and return the time in ms
 export const parseAlertStringTime = (str: string): number => {
@@ -47,7 +53,7 @@ const getCheckResponseFn = (alert: string): CheckResponseFn | undefined => {
 
 export const validateResponse = (
   alerts: Probe['alerts'],
-  response: SymonResponse
+  response: AxiosResponseWithExtraData
 ): ValidateResponseStatus[] => {
   const checks = []
 
@@ -114,8 +120,8 @@ export const sendAlerts = async ({
                   body: message.body,
                   sender: {
                     // TODO: Change this before release
-                    name: 'http-probe',
-                    email: 'http-probe@hyperjump.tech',
+                    name: 'Monika',
+                    email: 'Monika@hyperjump.tech',
                   },
                   recipients: notification.recipients.join(','),
                 },

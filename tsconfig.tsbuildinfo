@@ -352,7 +352,7 @@
         "affectsGlobalScope": false
       },
       "./src/interfaces/request.ts": {
-        "version": "13a509aaa8e56b529a50e75fa8d425fe324377affecd95c9c635a4e7abc7f7f1",
+        "version": "4a1af2cd799d295dd460e0f118714191756eba556b619598f655c868b56139a2",
         "signature": "60f6b0ea92088f5658bc7054b5a3c5202447a8be3735103a41e3bcb34458e2c4",
         "affectsGlobalScope": false
       },
@@ -1407,6 +1407,10 @@
         "./src/interfaces/config.ts",
         "./src/interfaces/data.ts",
         "./src/interfaces/notification.ts"
+      ],
+      "./src/utils/webhook.ts": [
+        "./node_modules/axios/index.d.ts",
+        "./src/interfaces/data.ts"
       ],
       "./src/utils/webhook.ts": [
         "./node_modules/axios/index.d.ts",

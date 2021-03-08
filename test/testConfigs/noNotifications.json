@@ -1,5 +1,5 @@
 {
-  "interval": 20,
+  "interval": 0,
   "probes": [
     {
       "id": "1",

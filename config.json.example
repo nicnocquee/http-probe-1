@@ -1,5 +1,5 @@
 {
-  "interval": 20,
+  "interval": 0,
   "notifications": [
     {
       "id": "unique-id",
@@ -48,6 +48,7 @@
       "request": {
         "method": "POST",
         "url": "https://something/login",
+        "timeout": 7000,
         "headers": {
           "Authorization": ""
         },

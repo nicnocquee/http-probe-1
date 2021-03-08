@@ -1,16 +1,16 @@
+import { Command, flags } from '@oclif/command'
+import { Config } from './interfaces/config'
 import {
-  SMTPData,
+  MailData,
   MailgunData,
   SendgridData,
+  SMTPData,
   WebhookData,
-  MailData,
 } from './interfaces/data'
-import { Command, flags } from '@oclif/command'
 import { Validation } from './interfaces/validation'
-import { validateConfig } from './utils/validate-config'
+import { looper } from './utils/looper'
 import { parseConfig } from './utils/parse-config'
-import { Config } from './interfaces/config'
-
+import { validateConfig } from './utils/validate-config'
 class SymonAgent extends Command {
   static description = 'describe the command here'
 
@@ -30,14 +30,11 @@ class SymonAgent extends Command {
 
   async run() {
     const { flags } = this.parse(SymonAgent)
-
     // Set default config file to read
     // If there is a config file flag, override the default
     const file = flags.config || './config.json'
-
     // Read the config
     const config: Config = await parseConfig(file)
-
     // Check if config is valid
     const isConfigValid: Validation = await validateConfig(config)
 
@@ -49,19 +46,16 @@ class SymonAgent extends Command {
           config.interval ? `${config.interval} seconds\n` : 'Not specified\n'
         }`
       )
-
       this.log(`Notifications: `)
       config.notifications.forEach((item) => {
         this.log(`Notification ID: ${item.id}`)
         this.log(`Notification Type: ${item.type}`)
-
         // Only show recipients if type is mailgun, smtp, or sendgrid
         if (['mailgun', 'smtp', 'sendgrid'].indexOf(item.type) >= 0) {
           this.log(
             `Notification Recipients: ${(item.data as MailData).recipients.toString()}\n`
           )
         }
-
         this.log(`Notifications Details:`)
         switch (item.type) {
           case 'smtp':
@@ -74,35 +68,20 @@ class SymonAgent extends Command {
             this.log(`API key: ${(item.data as MailgunData).apiKey}`)
             this.log(`Domain: ${(item.data as MailgunData).domain}`)
             break
-
           case 'sendgrid':
             this.log(`API key: ${(item.data as SendgridData).apiKey}`)
             break
-
           case 'webhook':
             this.log(`URL: ${(item.data as WebhookData).url}`)
             break
         }
       })
-
-      this.log('\nProbes: ')
-      config.probes.forEach((item) => {
-        this.log(`Probe ID: ${item.id}`)
-        this.log(`Probe Name: ${item.name}`)
-        this.log(`Probe Description: ${item.description}`)
-        this.log(`Probe Request Method: ${item.request.method}`)
-        this.log(`Probe Request URL: ${item.request.url}`)
-        this.log(
-          `Probe Request Headers: ${JSON.stringify(item.request.headers)}`
-        )
-        this.log(`Probe Request Body: ${JSON.stringify(item.request.body)}`)
-        this.log(`Probe Alerts: ${item.alerts.toString()}\n`)
-      })
+      // Loop through all probes
+      looper(config)
     } else {
       // If config is invalid, throw error
       this.error(isConfigValid.message, { exit: 100 })
     }
   }
 }
-
 export = SymonAgent

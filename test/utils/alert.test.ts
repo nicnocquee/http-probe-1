@@ -1,10 +1,10 @@
 import chai, { expect } from 'chai'
 import spies from 'chai-spies'
 import { MailgunData } from '../../src/interfaces/data'
+import { AxiosResponseWithExtraData } from '../../src/interfaces/request'
 
 chai.use(spies)
 
-import { SymonResponse } from '../../src/interfaces/response'
 import {
   parseAlertStringTime,
   responseTimeGreaterThan,
@@ -18,35 +18,61 @@ import * as smtp from '../../src/utils/smtp'
 
 describe('check response status', () => {
   it('should trigger alert when response is within 4xx status', () => {
-    const status400Alert = statusNot2xx({ status: 400 } as SymonResponse)
+    const status400Alert = statusNot2xx({
+      status: 400,
+    } as AxiosResponseWithExtraData)
     expect(status400Alert).to.be.true
-    const status401Alert = statusNot2xx({ status: 401 } as SymonResponse)
+    const status401Alert = statusNot2xx({
+      status: 401,
+    } as AxiosResponseWithExtraData)
     expect(status401Alert).to.be.true
-    const status403Alert = statusNot2xx({ status: 403 } as SymonResponse)
+    const status403Alert = statusNot2xx({
+      status: 403,
+    } as AxiosResponseWithExtraData)
     expect(status403Alert).to.be.true
-    const status404Alert = statusNot2xx({ status: 404 } as SymonResponse)
+    const status404Alert = statusNot2xx({
+      status: 404,
+    } as AxiosResponseWithExtraData)
     expect(status404Alert).to.be.true
-    const status405Alert = statusNot2xx({ status: 405 } as SymonResponse)
+    const status405Alert = statusNot2xx({
+      status: 405,
+    } as AxiosResponseWithExtraData)
     expect(status405Alert).to.be.true
   })
   it('should trigger alert when response is within 5xx status', () => {
-    const status500Alert = statusNot2xx({ status: 500 } as SymonResponse)
+    const status500Alert = statusNot2xx({
+      status: 500,
+    } as AxiosResponseWithExtraData)
     expect(status500Alert).to.be.true
-    const status501Alert = statusNot2xx({ status: 501 } as SymonResponse)
+    const status501Alert = statusNot2xx({
+      status: 501,
+    } as AxiosResponseWithExtraData)
     expect(status501Alert).to.be.true
-    const status502Alert = statusNot2xx({ status: 502 } as SymonResponse)
+    const status502Alert = statusNot2xx({
+      status: 502,
+    } as AxiosResponseWithExtraData)
     expect(status502Alert).to.be.true
-    const status503Alert = statusNot2xx({ status: 503 } as SymonResponse)
+    const status503Alert = statusNot2xx({
+      status: 503,
+    } as AxiosResponseWithExtraData)
     expect(status503Alert).to.be.true
   })
   it('should not trigger alert when response is within 2xx status', () => {
-    const status200Alert = statusNot2xx({ status: 200 } as SymonResponse)
+    const status200Alert = statusNot2xx({
+      status: 200,
+    } as AxiosResponseWithExtraData)
     expect(status200Alert).to.be.false
-    const status201Alert = statusNot2xx({ status: 201 } as SymonResponse)
+    const status201Alert = statusNot2xx({
+      status: 201,
+    } as AxiosResponseWithExtraData)
     expect(status201Alert).to.be.false
-    const status202Alert = statusNot2xx({ status: 202 } as SymonResponse)
+    const status202Alert = statusNot2xx({
+      status: 202,
+    } as AxiosResponseWithExtraData)
     expect(status202Alert).to.be.false
-    const status204Alert = statusNot2xx({ status: 204 } as SymonResponse)
+    const status204Alert = statusNot2xx({
+      status: 204,
+    } as AxiosResponseWithExtraData)
     expect(status204Alert).to.be.false
   })
 })
@@ -75,43 +101,48 @@ describe('parse alert string and get time in milliseconds', () => {
 describe('check time to response', () => {
   it('should trigger alert when response time is greater than specified value', () => {
     const alert = responseTimeGreaterThan(200)({
-      timeToResponse: 300,
-    } as SymonResponse)
+      data: '',
+      status: 200,
+      statusText: 'OK',
+      headers: '',
+      config: '',
+      extraData: {
+        requestStartedAt: new Date(100),
+        responseTime: new Date(300),
+      },
+    } as AxiosResponseWithExtraData)
+
     expect(alert).to.be.true
   })
   it('should not trigger alert when response time equals to specified value', () => {
-    const alert = responseTimeGreaterThan(200)({
-      timeToResponse: 200,
-    } as SymonResponse)
+    const alert = responseTimeGreaterThan(200)({} as AxiosResponseWithExtraData)
     expect(alert).to.be.false
   })
   it('should not trigger alert when response is less than to specified value', () => {
-    const alert = responseTimeGreaterThan(200)({
-      timeToResponse: 100,
-    } as SymonResponse)
+    const alert = responseTimeGreaterThan(200)({} as AxiosResponseWithExtraData)
     expect(alert).to.be.false
   })
 })
 
 describe('check response against list of alerts', () => {
   it('should ignore unknown alert string', () => {
-    const alerts = validateResponse(['unknown'], {} as SymonResponse)
+    const alerts = validateResponse(
+      ['unknown'],
+      {} as AxiosResponseWithExtraData
+    )
     expect(alerts).to.have.length(0)
   })
   it('should recognize known alert strings', () => {
     const alerts = validateResponse(
       ['status-not-2xx', 'response-time-greater-than-200ms'],
-      {} as SymonResponse
+      {} as AxiosResponseWithExtraData
     )
     expect(alerts).to.have.length(2)
   })
   it('should not trigger any alert when no alert condition is true', () => {
     const alerts = validateResponse(
       ['status-not-2xx', 'response-time-greater-than-200ms'],
-      {
-        timeToResponse: 100,
-        status: 200,
-      } as SymonResponse
+      {} as AxiosResponseWithExtraData
     ).filter(({ status }) => status === true)
     expect(alerts).to.have.length(0)
   })
@@ -119,9 +150,16 @@ describe('check response against list of alerts', () => {
     const alerts = validateResponse(
       ['status-not-2xx', 'response-time-greater-than-200ms'],
       {
-        timeToResponse: 100,
-        status: 400,
-      } as SymonResponse
+        data: '',
+        status: 200,
+        statusText: 'OK',
+        headers: '',
+        config: '',
+        extraData: {
+          requestStartedAt: new Date(100),
+          responseTime: new Date(500),
+        },
+      } as AxiosResponseWithExtraData
     ).filter(({ status }) => status === true)
     expect(alerts).to.have.length(1)
   })
@@ -129,9 +167,16 @@ describe('check response against list of alerts', () => {
     const alerts = validateResponse(
       ['status-not-2xx', 'response-time-greater-than-200ms'],
       {
-        timeToResponse: 300,
-        status: 400,
-      } as SymonResponse
+        data: '',
+        status: 500,
+        statusText: 'OK',
+        headers: '',
+        config: '',
+        extraData: {
+          requestStartedAt: new Date(100),
+          responseTime: new Date(500),
+        },
+      } as AxiosResponseWithExtraData
     ).filter(({ status }) => status === true)
     expect(alerts).to.have.length(2)
   })

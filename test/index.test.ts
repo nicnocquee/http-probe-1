@@ -10,7 +10,6 @@ describe('http-probe', () => {
     .do(() => cmd.run(['--config', resolve('./config.json.example')]))
     .it('runs with normal config', (ctx) => {
       expect(ctx.stdout).to.contain('Parsed configuration')
-      expect(ctx.stdout).to.contain('Interval: 20 seconds')
     })
 
   test

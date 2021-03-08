@@ -1,7 +1,9 @@
+import { RequestConfig } from './request'
+
 export interface Probe {
   id: number
   name: string
   description?: string
-  request: Request
+  request: RequestConfig
   alerts: string[]
 }
