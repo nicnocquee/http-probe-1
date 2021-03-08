@@ -169,7 +169,7 @@ export const validateConfig = async (configuration: Config) => {
 
     if (url && !isValidURL(url)) return PROBE_REQUEST_INVALID_URL
 
-    if (method && ['GET', 'POST'].indexOf(method) < 1)
+    if (method && ['GET', 'POST'].indexOf(method) < 0)
       return PROBE_REQUEST_INVALID_METHOD
   }
 
