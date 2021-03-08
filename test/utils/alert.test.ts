@@ -85,15 +85,15 @@ describe('parse alert string and get time in milliseconds', () => {
   })
   it('should throw error when pattern is invalid', () => {
     expect(
-      parseAlertStringTime.bind(null, 'response-time-greater-than-200-s')
+      parseAlertStringTime.bind(null, 'response-time-greater-than-200s')
     ).to.throw()
   })
-  it('should parse string `response-time-greater-than-2s`', () => {
-    const time = parseAlertStringTime('response-time-greater-than-2s')
+  it('should parse string `response-time-greater-than-2-s`', () => {
+    const time = parseAlertStringTime('response-time-greater-than-2-s')
     expect(time).to.equals(2000)
   })
-  it('should parse string `response-time-greater-than-300ms`', () => {
-    const time = parseAlertStringTime('response-time-greater-than-300ms')
+  it('should parse string `response-time-greater-than-300-ms`', () => {
+    const time = parseAlertStringTime('response-time-greater-than-300-ms')
     expect(time).to.equals(300)
   })
 })
@@ -134,21 +134,21 @@ describe('check response against list of alerts', () => {
   })
   it('should recognize known alert strings', () => {
     const alerts = validateResponse(
-      ['status-not-2xx', 'response-time-greater-than-200ms'],
+      ['status-not-2xx', 'response-time-greater-than-200-ms'],
       {} as AxiosResponseWithExtraData
     )
     expect(alerts).to.have.length(2)
   })
   it('should not trigger any alert when no alert condition is true', () => {
     const alerts = validateResponse(
-      ['status-not-2xx', 'response-time-greater-than-200ms'],
+      ['status-not-2xx', 'response-time-greater-than-200-ms'],
       {} as AxiosResponseWithExtraData
     ).filter(({ status }) => status === true)
     expect(alerts).to.have.length(0)
   })
   it('should trigger one alert when one alert condition is true', () => {
     const alerts = validateResponse(
-      ['status-not-2xx', 'response-time-greater-than-200ms'],
+      ['status-not-2xx', 'response-time-greater-than-200-ms'],
       {
         data: '',
         status: 200,
@@ -165,7 +165,7 @@ describe('check response against list of alerts', () => {
   })
   it('should trigger more than one alert when more than one alert condition is true', () => {
     const alerts = validateResponse(
-      ['status-not-2xx', 'response-time-greater-than-200ms'],
+      ['status-not-2xx', 'response-time-greater-than-200-ms'],
       {
         data: '',
         status: 500,

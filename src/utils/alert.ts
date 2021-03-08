@@ -26,10 +26,10 @@ export const responseTimeGreaterThan: (
   return respTimeNum > minimumTime
 }
 
-// parse string like "response-time-greater-than-200ms" and return the time in ms
+// parse string like "response-time-greater-than-200-ms" and return the time in ms
 export const parseAlertStringTime = (str: string): number => {
   // match any string that ends with digits followed by unit 's' or 'ms'
-  const match = str.match(/(\d+)(m?s)$/)
+  const match = str.match(/(\d+)-(m?s)$/)
   if (!match) {
     throw new Error('alert string does not contain valid time number')
   }
