@@ -12,6 +12,14 @@
     },
     {
       "id": "unique-id",
+      "type": "sendgrid",
+      "data": {
+        "recipients": ["mantap@jiwa.com"],
+        "apiKey": "YOUR_API_KEY"
+      }
+    },
+    {
+      "id": "unique-id",
       "type": "smtp",
       "recipients": ["a@a.com"],
       "data": {

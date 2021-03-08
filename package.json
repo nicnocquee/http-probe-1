@@ -28,6 +28,7 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
+    "@sendgrid/mail": "^7.4.2",
     "@types/chai-spies": "^1.0.3",
     "axios": "^0.21.1",
     "mailgun-js": "^0.22.0",
