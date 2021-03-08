@@ -22,6 +22,8 @@ async function doProbes(config: Config) {
     // probe each url
     log('\nProbing....')
     probRes = await probing(item)
+    log('status:', probRes.status, 'for:', item.request.url)
+
     validatedResp = validateResponse(item.alerts, probRes)
     await sendAlerts({
       validations: validatedResp,
