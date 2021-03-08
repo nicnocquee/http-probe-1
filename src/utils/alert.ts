@@ -41,7 +41,9 @@ export const parseAlertStringTime = (str: string): number => {
   return number
 }
 
-const getCheckResponseFn = (alert: string): CheckResponseFn | undefined => {
+export const getCheckResponseFn = (
+  alert: string
+): CheckResponseFn | undefined => {
   if (alert === 'status-not-2xx') {
     return statusNot2xx
   }

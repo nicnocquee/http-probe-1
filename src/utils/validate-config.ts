@@ -1,3 +1,4 @@
+import { getCheckResponseFn } from './alert'
 /* eslint-disable complexity */
 import { Notification } from '../interfaces/notification'
 import {
@@ -56,6 +57,11 @@ const PROBE_REQUEST_INVALID_URL = {
 const PROBE_REQUEST_INVALID_METHOD = {
   valid: false,
   message: 'Probe request method should be GET or POST only',
+}
+const PROBE_ALERT_INVALID = {
+  valid: false,
+  message:
+    "Probe alert should be 'status-not-2xx' or 'response-time-greater-than-<number>-(m)s",
 }
 
 // SMTP
@@ -171,6 +177,14 @@ export const validateConfig = async (configuration: Config) => {
 
     if (method && ['GET', 'POST'].indexOf(method) < 0)
       return PROBE_REQUEST_INVALID_METHOD
+
+    // Check probe alert properties
+    for (const alert of alerts) {
+      const check = getCheckResponseFn(alert)
+      if (!check) {
+        return PROBE_ALERT_INVALID
+      }
+    }
   }
 
   return VALID_CONFIG

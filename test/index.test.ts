@@ -129,7 +129,22 @@ describe('http-probe', () => {
         'Probe request URL should start with http:// or https://'
       )
     })
-    .it('runs with config with invalid probe request method')
+    .it('runs with config with invalid probe request URL')
+
+  test
+    .stderr()
+    .do(() =>
+      cmd.run([
+        '--config',
+        resolve('./test/testConfigs/probes/invalidProbeRequestAlert.json'),
+      ])
+    )
+    .catch((error) => {
+      expect(error.message).to.contain(
+        "Probe alert should be 'status-not-2xx' or 'response-time-greater-than-<number>-(m)s"
+      )
+    })
+    .it('runs with config with invalid probe request alert')
 
   // Mailgun Tests
   test

@@ -1,11 +1,11 @@
 {
-  "interval": 0,
   "notifications": [
     {
       "id": "unique-id",
-      "type": "sendgrid",
+      "type": "webhook",
       "data": {
-        "apiKey": "adfsafdsadfdsafsafds"
+        "url": "http://www.dennypradipta.com",
+        "method": "GET"
       }
     }
   ],
@@ -15,8 +15,8 @@
       "name": "Example",
       "description": "Probe",
       "request": {
-        "method": "POST",
-        "url": "https://something/login",
+        "method": "GET",
+        "url": "https://something/something",
         "headers": {
           "Authorization": ""
         },
@@ -25,7 +25,7 @@
           "password": "somepassword"
         }
       },
-      "alerts": ["status-not-2xx", "response-time-greater-than-200-ms"]
+      "alerts": ["status-not-2xx", "response-time-lower-than-200-ms"]
     }
   ]
 }

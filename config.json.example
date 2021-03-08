@@ -57,7 +57,7 @@
           "password": "somepassword"
         }
       },
-      "alerts": ["status-not-200", "response-greater-than-200"]
+      "alerts": ["status-not-2xx", "response-time-greater-than-200-ms"]
     }
   ]
 }
