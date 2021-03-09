@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai'
 import spies from 'chai-spies'
-import { MailgunData } from '../../src/interfaces/data'
+import { MailgunData, WebhookData } from '../../src/interfaces/data'
 import { AxiosResponseWithExtraData } from '../../src/interfaces/request'
 
 chai.use(spies)
@@ -198,8 +198,8 @@ describe('send alerts', () => {
         {
           id: 'one',
           type: 'mailgun',
-          recipients: ['xx@xx'],
           data: {
+            recipients: ['xx@xx'],
             apiKey: 'xx',
             domain: 'xxx',
           } as MailgunData,
@@ -222,7 +222,6 @@ describe('send alerts', () => {
         {
           id: 'one',
           type: 'mailgun',
-          recipients: ['xx@xx'],
           data: {
             recipients: ['xx@xx'],
             apiKey: 'xx',
@@ -248,11 +247,10 @@ describe('send alerts', () => {
         {
           id: 'one',
           type: 'webhook',
-          recipients: ['xx@xx'],
           data: {
             url: 'xx',
             method: 'POST',
-          },
+          } as WebhookData,
         },
       ],
       url: 'https://hyperjump.tech',
@@ -273,7 +271,6 @@ describe('send alerts', () => {
         {
           id: 'one',
           type: 'smtp',
-          recipients: ['xx@xx'],
           data: {
             recipients: ['xx@xx'],
             hostname: 'xx',
@@ -305,10 +302,14 @@ describe('send alerts', () => {
         {
           id: 'one',
           type: 'webhook',
-          recipients: ['xx@xx'],
           data: {
             url: 'xx',
             method: 'POST',
+            body: {
+              url: 'https://webhook/webhook',
+              time: '123',
+              alert: 'alert',
+            },
           },
         },
       ],

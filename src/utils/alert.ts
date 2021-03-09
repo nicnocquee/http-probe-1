@@ -1,4 +1,4 @@
-import { SMTPData, WebhookData } from '../interfaces/data'
+import { SMTPData, WebhookData, MailgunData } from '../interfaces/data'
 import { Notification } from '../interfaces/notification'
 import { Probe } from '../interfaces/probe'
 import { AxiosResponseWithExtraData } from '../interfaces/request'
@@ -125,7 +125,9 @@ export const sendAlerts = async ({
                     name: 'Monika',
                     email: 'Monika@hyperjump.tech',
                   },
-                  recipients: notification.recipients.join(','),
+                  recipients: (notification?.data as MailgunData)?.recipients?.join(
+                    ','
+                  ),
                 },
                 notification
               ).then(() => ({
@@ -135,7 +137,14 @@ export const sendAlerts = async ({
               }))
             }
             case 'webhook': {
-              return sendWebhook(notification.data as WebhookData).then(() => ({
+              return sendWebhook({
+                ...notification.data,
+                body: {
+                  url,
+                  alert: val.alert,
+                  time: new Date().toLocaleString(),
+                },
+              } as WebhookData).then(() => ({
                 notification: 'webhook',
                 alert: val.alert,
                 url,
@@ -147,7 +156,7 @@ export const sendAlerts = async ({
               )
               return sendSmtpMail(transporter, {
                 from: 'http-probe@hyperjump.tech',
-                to: notification.recipients.join(','),
+                to: (notification?.data as SMTPData)?.recipients?.join(','),
                 subject: message.subject,
                 html: message.body,
               })

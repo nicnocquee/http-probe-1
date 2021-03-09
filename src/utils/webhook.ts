@@ -6,13 +6,17 @@ export const sendWebhook = async (data: WebhookData) => {
   try {
     if (!data.url) throw new Error(`Webhook url is not provided`)
 
-    if (data.method !== 'GET' && data.method !== 'POST') {
+    if (data.method !== 'POST') {
       throw new Error(
-        `Http method ${data.method} is not allowed. Webhook only allows GET or POST.`
+        `Http method ${data.method} is not allowed. Webhook only allows POST.`
       )
     }
 
-    const res = await axios({ url: data.url, method: data.method })
+    const res = await axios({
+      url: data.url,
+      data: data.body,
+      method: data.method,
+    })
 
     return res
   } catch (error) {
